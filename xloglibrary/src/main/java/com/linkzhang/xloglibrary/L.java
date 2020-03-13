@@ -204,7 +204,7 @@ public class L {
         log(V, tag, contents);
     }
 
-    public static void d(Object contents) {
+    public static void d(String contents) {
         log(D, sGlobalTag, contents);
     }
 
@@ -236,13 +236,6 @@ public class L {
         log(E, tag, contents);
     }
 
-    public static void a(Object contents) {
-        log(A, sGlobalTag, contents);
-    }
-
-    public static void a(String tag, Object... contents) {
-        log(A, tag, contents);
-    }
 
     public static void file(Object contents) {
         log(FILE | D, sGlobalTag, contents);
@@ -336,9 +329,9 @@ public class L {
             }
 
             String head = new Formatter()
-                    .format("%s.%s(%s.java:%d)",className,
+                    .format("%s.%s(%s:%d)",className,
                             targetElement.getMethodName(),
-                            className,
+                            targetElement.getFileName(),
                             targetElement.getLineNumber())
                     .toString();
             return new String[]{tag, head + LINE_SEP, " [" + head + "]: "};
@@ -350,8 +343,9 @@ public class L {
     private static String processBody(int type, Object... contents) {
         String body = NULL_TIPS;
         if (contents != null) {
-            if (contents.length == 1) {
+            if (contents.length > 0) {
                 Object object = contents[0];
+
                 body = object == null ? NULL : object.toString();
                 if (type == JSON) {
                     body = formatJson(body);
@@ -359,18 +353,7 @@ public class L {
                     body = formatXml(body);
                 }
             } else {
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0, len = contents.length; i < len; ++i) {
-                    Object content = contents[i];
-                    sb.append(ARGS)
-                            .append("[")
-                            .append(i)
-                            .append("]")
-                            .append(" = ")
-                            .append(content == null ? NULL : content.toString())
-                            .append(LINE_SEP);
-                }
-                body = sb.toString();
+
             }
         }
         return body;
