@@ -228,7 +228,7 @@ public class L {
         log(W, tag, contents);
     }
 
-    public static void e(Object contents) {
+    public static void e(String contents) {
         log(E, sGlobalTag, contents);
     }
 

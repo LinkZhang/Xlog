@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
                 .build()
         L.d(Log.getSysInfo())
         L.d("Hello world")
-        L.d("Test","Hello World")
+        L.e("Hello World")
         L.json("{\"code\": 0, \"msg\": \"success\", \"data\": {\"list\": [], \"next_page\": false,  \"unread\": 0}}")
 
     }
